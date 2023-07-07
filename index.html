@@ -9,6 +9,7 @@
 		<link rel="stylesheet" href="css/bootstrap.min.css">
 		<link rel="stylesheet" href="css/font-awesome.min.css">
 		<link rel="stylesheet" href="css/style.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	</head>
 	<body>
 		<div class="bgimg img-responsive img-fluid">
@@ -304,7 +305,7 @@
 					<div class="col-md-6">
 						<h2>Get In Touch</h2>
 						<p><span class="grey">You can contact with me using this form.</span></p>
-						<form action="#">
+						<form  id="submit-form" action="" >
 							<div class="row">
 								<div class="col-md-6">
 									<input type="text" placeholder="Your Name" class="form-control input">
@@ -349,5 +350,17 @@
 <script src="js/jquery.js"></script>
 <script src="js/popper.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
+<script>
+	$("#submit-form").submit((e)=>{
+		e.preventDefault()
+		$.ajax({
+			url:"https://script.google.com/macros/s/AKfycbzSbY5pwpqqDgqAtDhw-Adoz_EY9ltV6-bDciVgWMXyjhFPnsNti2H7HG7KzqmkzQdF/exec",
+			url:"",
+			data:$("#submit-form").serialize(),
+			method:"post",
+			success:function (response){
+@@ -57,4 +57,4 @@ <h2>Contact Us</h2>
+	})
+</script>
 </body>
 </html>
