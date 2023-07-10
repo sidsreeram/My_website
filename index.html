@@ -3,13 +3,16 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>SID_X_S</title>
+		<link rel = "icon" href = 
+		"css/my_logo-removebg-preview.png" 
+				type = "image/x-icon">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<meta name="description" content="Bootstrap Templates Made For OpenClassRoom">
 		<meta name="author" content="Florent Vandroy">
 		<link rel="stylesheet" href="css/bootstrap.min.css">
 		<link rel="stylesheet" href="css/font-awesome.min.css">
 		<link rel="stylesheet" href="css/style.css">
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
 	</head>
 	<body>
 		<div class="bgimg img-responsive img-fluid">
@@ -41,11 +44,11 @@
 									<a class="nav-link" href="#contacts">Contact</a>
 								</li>
 							</ul>
-							<div class="form-inline my-2 my-lg-0">
+							<!-- <div class="form-inline my-2 my-lg-0">
 								<li class="nav-item right-link">
 									<a href="nav-link">Buy it Now!</a>
 								</li>
-							</div>
+							</div> -->
 						</div>
 					</div>
 				</nav>
@@ -305,25 +308,26 @@
 					<div class="col-md-6">
 						<h2>Get In Touch</h2>
 						<p><span class="grey">You can contact with me using this form.</span></p>
-						<form  id="submit-form" action="" >
+						<form  name="submit-to-google-sheet"  >
 							<div class="row">
 								<div class="col-md-6">
-									<input type="text" placeholder="Your Name" class="form-control input">
+									<input type="text" placeholder="Your Name" class="form-control input" name="name" id="name">
 								</div>
 								<div class="col-md-6" style="padding-bottom: 40px;">
-									<input type="text" placeholder="Your Email Adress" class="form-control input">
+									<input type="text" placeholder="Your Email Adress" class="form-control input" name="email" id="email">
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-md-12">
-									<textarea name="contactarea" id="contactarea" class="form-control" cols="15" rows="4" placeholder="Tape in your message"></textarea>
+									<textarea name="message" id="contactarea" class="form-control" id="message" cols="15" rows="4" placeholder="Type in your message"></textarea>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-md-12" style="padding-top: 30px">
-									<input type="submit" value="Send" class="form-control">
+									<input type="submit" value="Send" class="form-control" id="btn">
 								</div>
 							</div>
+							<span id="success"></span>
 						</form>
 					</div>
 				</div>
@@ -350,17 +354,26 @@
 <script src="js/jquery.js"></script>
 <script src="js/popper.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
-<script>
-	$("#submit-form").submit((e)=>{
-		e.preventDefault()
-		$.ajax({
-			url:"https://script.google.com/macros/s/AKfycbzSbY5pwpqqDgqAtDhw-Adoz_EY9ltV6-bDciVgWMXyjhFPnsNti2H7HG7KzqmkzQdF/exec",
-			url:"",
-			data:$("#submit-form").serialize(),
-			method:"post",
-			success:function (response){
-@@ -57,4 +57,4 @@ <h2>Contact Us</h2>
+<script src="./js/validation.js"></script>
+
+  
+  <script>
+	const scriptURL = 'https://script.google.com/macros/s/AKfycbwDlbfsioEaJuxBUCuSlVMdFKYbjb8p8ODnruLF1LRm8zMmUsGVPab1GgXRQ1ubPkKjdg/exec'
+	const form = document.forms['submit-to-google-sheet']
+	const success = document.getElementById('success')
+	form.addEventListener('submit', e => {
+	  e.preventDefault()
+	  fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+		.then(response => {
+   success.innerHTML="Your response is successfully submitted";
+   setTimeout(function(){
+	success.innerHTML="";
+   },5000)
+   form.reset();
+		})
+		.catch(error => console.error('Error!', error.message))
 	})
-</script>
+  </script>
+
 </body>
 </html>
